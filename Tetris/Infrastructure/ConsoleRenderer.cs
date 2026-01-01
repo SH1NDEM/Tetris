@@ -23,8 +23,8 @@ namespace Tetris.Infrastructure
             for (int i = 0; i < GameField.fieldHight; i++)
             {
                 // Left border
-                Console.SetCursorPosition(startConsoleX, startConsoleY+i);
-                Console.Write(leftBorder);               
+                Console.SetCursorPosition(startConsoleX, startConsoleY + i);
+                Console.Write(leftBorder);
             }
 
             for (int i = 0; i < GameField.fieldHight; i++)
@@ -37,7 +37,7 @@ namespace Tetris.Infrastructure
 
         void printBottom()
         {
-            for (int i = 0;i < GameField.fieldWidth + 4; i++)
+            for (int i = 0; i < GameField.fieldWidth + 4; i++)
             {
                 Console.SetCursorPosition(startConsoleX + i, startConsoleY + GameField.fieldHight);
                 Console.Write(bottom);

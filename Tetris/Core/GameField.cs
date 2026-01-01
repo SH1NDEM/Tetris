@@ -38,8 +38,8 @@ namespace Tetris.Core
 
         public void FigureMovment(Figure figure)
         {
-            int x = 5;
-            int y = 10;
+            int x = figure.X;
+            int y = figure.Y;
 
             for (int i = 0; i < 4; i++)
             {
