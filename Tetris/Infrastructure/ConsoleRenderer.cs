@@ -14,8 +14,8 @@ namespace Tetris.Infrastructure
         string leftBorder = "<|";
         string rightBorder = "|>";
 
-        int startConsoleX = 0;
-        int startConsoleY = 0;
+        int startConsoleX = 0 +20;
+        int startConsoleY = 0 +3;
 
         void printBorders()
         {
@@ -44,7 +44,7 @@ namespace Tetris.Infrastructure
             }
         }
 
-        void printBackground()
+        void printField()
         {
             for (int y = 0; y < GameField.fieldHight; y++)
             {
@@ -57,18 +57,17 @@ namespace Tetris.Infrastructure
 
                     Console.SetCursorPosition(consoleX, consoleY);
 
-                    // ИСПРАВЛЕНО: теперь можно проверять матрицу поля, пока рисуем просто фон
-                    bool cellOccupied = false; // позже: field.fieldMatrix[x,y]
+                    bool cellOccupied = GameField.fieldMatrix[x, y];
                     Console.Write(cellOccupied ? '#' : background);
                 }
             }
         }
 
-        public void printField()
+        public void printGame()
         {
             printBorders();
             printBottom();
-            printBackground();
+            printField();
         }
     }
 }
