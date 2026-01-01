@@ -8,9 +8,18 @@ namespace Tetris.Core
 {
     internal class FieldCell
     {
+        /// <summary>
+        /// Координата ячейки по оси X
+        /// </summary>
         int coordinateX_;
+        /// <summary>
+        /// Координата ячейки по оси Y
+        /// </summary>
         int coordinateY_;
 
+        /// <summary>
+        /// Значение заполненности ячейки фигурой
+        /// </summary>
         bool isFill_;
 
         public int CoordinateX 

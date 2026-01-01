@@ -8,11 +8,23 @@ namespace Tetris.Core
 {
     internal class GameField
     {
+        /// <summary>
+        /// Высота игрового поля
+        /// </summary>
         readonly public static int fieldHight = 20;
-        readonly public static int fieldWidth = 10 * 2;
+        /// <summary>
+        /// Ширина игрового поля (*2 для лучшего отображения)
+        /// </summary>
+        readonly public static int fieldWidth = 10;
 
-        bool[,] fieldMatrix = new bool[fieldWidth, fieldHight];
+        /// <summary>
+        /// Матрица поля типа bool
+        /// </summary>
+        public static bool[,] fieldMatrix = new bool[fieldWidth, fieldHight];
 
+        /// <summary>
+        /// Полная очистка fieldMatrix
+        /// </summary>
         public void ClearField()
         {
             for (int x = 0; x < fieldWidth; x++)
@@ -21,6 +33,20 @@ namespace Tetris.Core
                 {
                     fieldMatrix[x, y] = false;
                 }
+            }
+        }
+
+        public void FigureMovment(Figure figure)
+        {
+            int x = 5;
+            int y = 10;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = x + figure.Shape[0, i];
+                int fieldY = y + figure.Shape[1, i];
+
+                fieldMatrix[fieldX, fieldY] = true;
             }
         }
     }
