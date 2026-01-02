@@ -50,9 +50,18 @@ namespace Tetris.Core
             }
         }
 
-        public void FigureMovement(Figure figure)
+        public void FigureMove(Figure figure)
         {
+            int x = figure.X;
+            int y = figure.Y;
 
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = x + figure.Shape[0, i] ;
+                int fieldY = y + figure.Shape[1, i] + 1;
+
+                fieldMatrix[fieldX, fieldY] = false;
+            }
         }
     }
 }

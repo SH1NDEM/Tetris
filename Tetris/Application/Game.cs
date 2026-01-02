@@ -12,6 +12,13 @@ namespace Tetris.Application
         public Game()
         {
             _field = new GameField();
+            _renderer = new ConsoleRenderer();
+
+            _figure = new Figure(FigureType.Z, 5, 19);
+            _field.FigureView(_figure);
+            _field.ClearField();
+            _field.FigureView(_figure);
+            _renderer.printGame();
         }
 
         public async void Run()
@@ -21,28 +28,32 @@ namespace Tetris.Application
             _renderer = new ConsoleRenderer();
 
             _figure = new Figure(FigureType.Z, 5, 19);
-            _field.FigureView(_figure);
+            //_field.FigureView(_figure);
+            //_field.ClearField();
+            //_renderer.printGame();
 
             int Y = 19;
             while (true)
             {
                 DateTime now = DateTime.Now;
-                _figure = new Figure(FigureType.Z, 5, 19);
+                //_figure = new Figure(FigureType.Z, 5, 19);
 
                 if ((now - lastFallTime).TotalSeconds >= 0.5)
                 {
                     
                     _figure.Y -= 1;
+                    //_field.FigureView(_figure);
+                    //_field.ClearField();
+                    _field.FigureMove(_figure);
                     _field.FigureView(_figure);
-                    _field.ClearField();
-
+                    _renderer.printGame();
                     lastFallTime = now;
                     Y -= 1;
-                    _renderer.printGame();
+                    
                 }
-                if (Y == 0)
+                if (Y == 0 || (GameField.fieldMatrix[_figure.X, _figure.Y - 1]) == true)
                 {
-                    Run();
+                    _figure = new Figure(FigureType.Z, 5, 19);
                 }
             }
         }
