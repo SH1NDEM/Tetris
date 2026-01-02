@@ -29,6 +29,7 @@ namespace Tetris.Application
             // Здесь позже будет игровой цикл
             // Например: while(running) { Update(); _renderer.PrintField(_field); }
             Console.ReadLine();
+//test
         }
     }
 }
