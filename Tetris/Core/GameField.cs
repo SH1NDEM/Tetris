@@ -36,7 +36,7 @@ namespace Tetris.Core
             }
         }
 
-        public void FigureMovment(Figure figure)
+        public void FigureView(Figure figure)
         {
             int x = figure.X;
             int y = figure.Y;
@@ -48,6 +48,11 @@ namespace Tetris.Core
 
                 fieldMatrix[fieldX, fieldY] = true;
             }
+        }
+
+        public void FigureMovement(Figure figure)
+        {
+
         }
     }
 }
