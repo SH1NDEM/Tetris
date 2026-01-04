@@ -71,8 +71,45 @@ namespace Tetris.Core
             for (int i = 0; i < 4; i++)
             {
                 int fieldX = figure.X + figure.Shape[0, i];
-                int fieldY = figure.Y + figure.Shape[1, i] - 3; // проверяем следующую клетку вниз
-
+                int fieldY = 0;
+                switch (figure.Type)
+                {
+                    case FigureType.I:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 3;
+                            break;
+                        }
+                    case FigureType.O:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 1;
+                            break;
+                        }
+                    case FigureType.T:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 1;
+                            break;
+                        }
+                    case FigureType.S:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 1;
+                            break;
+                        }
+                    case FigureType.Z:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 1;
+                            break;
+                        }
+                    case FigureType.L:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 2;
+                            break;
+                        }
+                    case FigureType.J:
+                        {
+                            fieldY = figure.Y + figure.Shape[1, i] - 2;
+                            break;
+                        }
+                }
                 // границы поля
                 if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 0)
                     return false; // коллизия
