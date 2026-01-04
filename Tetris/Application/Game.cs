@@ -31,8 +31,13 @@ namespace Tetris.Application
 
         public async void Run()
         {
+
             _figure = newFig();
+
             DateTime lastFallTime = DateTime.Now;
+
+            // Создаём renderer
+            _renderer = new ConsoleRenderer();
 
             while (true)
             {
@@ -40,27 +45,17 @@ namespace Tetris.Application
 
                 if ((now - lastFallTime).TotalSeconds >= 0.1)
                 {
-
-                    if (_field.fallingCollision(_figure))
+                    if (!_field.fallingCollision(_figure))
                     {
-                        // стерли старую позицию
-                        _field.FigureMove(_figure);
-
-                        // нарисовали новую позицию
-                        _field.FigureView(_figure);
-                    }
-                    else
-                    {
-                        // фигура зафиксирована, создаём новую
                         _figure = newFig();
-                        _field.FigureView(_figure);
                     }
+                    _field.FigureMove(_figure);
+                    _field.FigureView(_figure);
                     _figure.Y -= 1;
                     _renderer.printGame();
                     lastFallTime = now;
                 }
             }
         }
-
     }
 }

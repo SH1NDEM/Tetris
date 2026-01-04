@@ -68,34 +68,21 @@ namespace Tetris.Core
 
         public bool fallingCollision(Figure figure)
         {
-            return countOfCollision(figure, 0, -1) == 0;
-        }
-
-
-        public int countOfCollision(Figure figure, int xp, int yp)
-        {
-            int count = 0;
-
             for (int i = 0; i < 4; i++)
             {
-                int fieldX = figure.X + figure.Shape[0, i] + xp;
-                int fieldY = figure.Y + figure.Shape[1, i] + yp;
+                int fieldX = figure.X + figure.Shape[0, i];
+                int fieldY = figure.Y + figure.Shape[1, i] - 1; // проверяем следующую клетку вниз
 
-                // выход за границы поля
-                if (fieldX < 0 || fieldX >= fieldWidth || fieldY < 0)
-                {
-                    count++;
-                    continue;
-                }
+                // границы поля
+                if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 0)
+                    return false; // коллизия
 
-                // столкновение с занятым блоком
-                if (fieldMatrix[fieldX, fieldY])
-                {
-                    count++;
-                }
+                // столкновение с зафиксированными блоками
+                if (GameField.fieldMatrix[fieldX, fieldY])
+                    return false; // коллизия
             }
-            return count;
-        }
 
+            return true; // можно падать
+        }
     }
 }
