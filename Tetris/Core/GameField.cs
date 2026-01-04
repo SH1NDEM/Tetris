@@ -71,7 +71,7 @@ namespace Tetris.Core
             for (int i = 0; i < 4; i++)
             {
                 int fieldX = figure.X + figure.Shape[0, i];
-                int fieldY = figure.Y + figure.Shape[1, i] - 1; // проверяем следующую клетку вниз
+                int fieldY = figure.Y + figure.Shape[1, i] - 3; // проверяем следующую клетку вниз
 
                 // границы поля
                 if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 0)
