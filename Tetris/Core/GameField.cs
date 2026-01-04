@@ -117,6 +117,7 @@ namespace Tetris.Core
                 // столкновение с зафиксированными блоками
                 if (GameField.fieldMatrix[fieldX, fieldY])
                     return false; // коллизия
+
             }
 
             return true; // можно падать
