@@ -25,13 +25,12 @@ namespace Tetris.Application
             Array values = Enum.GetValues(typeof(FigureType));
             FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
 
-            return new Figure(randomType, 5, 15);
+            return new Figure(randomType, 5, 21);
         }
 
         public async void Run()
         {
             _figure = newFig();
-            bool isFall = true;
 
             DateTime lastFallTime = DateTime.Now;
 
