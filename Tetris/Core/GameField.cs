@@ -9,11 +9,11 @@ namespace Tetris.Core
     internal class GameField
     {
         /// <summary>
-        /// Высота игрового поля
+        /// Высота игрового поля (20 видимого и 5 невидимого)
         /// </summary>
-        readonly public static int fieldHight = 20;
+        readonly public static int fieldHight = 25;
         /// <summary>
-        /// Ширина игрового поля (*2 для лучшего отображения)
+        /// Ширина игрового поля 
         /// </summary>
         readonly public static int fieldWidth = 10;
 

@@ -14,48 +14,47 @@ namespace Tetris.Infrastructure
         string leftBorder = "<|";
         string rightBorder = "|>";
 
-        int startConsoleX = 0 +20;
+        int startConsoleX = 0 +10;
         int startConsoleY = 0 +3;
+        int viewFieldHight = GameField.fieldHight - 5;
 
         void printBorders()
         {
             Console.SetCursorPosition(startConsoleX, startConsoleY);
-            for (int i = 0; i < GameField.fieldHight; i++)
+            for (int i = 0; i < viewFieldHight; i++)
             {
                 // Left border
-                Console.SetCursorPosition(startConsoleX, startConsoleY + i);
+                Console.SetCursorPosition(startConsoleX*2 + 1, startConsoleY + i);
                 Console.Write(leftBorder);
             }
 
-            for (int i = 0; i < GameField.fieldHight; i++)
+            for (int i = 0; i < viewFieldHight; i++)
             {
-                // Left border
-                Console.SetCursorPosition(startConsoleX + GameField.fieldWidth + 2, startConsoleY + i);
+                // Right border
+                Console.SetCursorPosition(startConsoleX  + (GameField.fieldWidth + 1) *3, startConsoleY + i);
                 Console.Write(rightBorder);
             }
         }
 
         void printBottom()
         {
-            for (int i = 0; i < GameField.fieldWidth + 4; i++)
+            for (int i = 0; i < (GameField.fieldWidth + 2) * 2; i++)
             {
-                Console.SetCursorPosition(startConsoleX + i, startConsoleY + GameField.fieldHight);
+                Console.SetCursorPosition(startConsoleX * 2 + i +1, startConsoleY + viewFieldHight);
                 Console.Write(bottom);
             }
         }
 
         void printField()
         {
-            for (int y = 0; y < GameField.fieldHight; y++)
+            for (int y = 0; y < viewFieldHight; y++)
             {
                 for (int x = 0; x < GameField.fieldWidth; x++)
                 {
-                    // ИСПРАВЛЕНО: раньше рисовалось в одной точке
-                    // Преобразуем координаты Core (Y ↑) → Console (Y ↓)
                     int consoleX = startConsoleX + leftBorder.Length + x;
-                    int consoleY = startConsoleY + GameField.fieldHight - 1 - y;
+                    int consoleY = startConsoleY + viewFieldHight - 1 - y;
 
-                    Console.SetCursorPosition(consoleX, consoleY);
+                    Console.SetCursorPosition(consoleX*2, consoleY);
 
                     bool cellOccupied = GameField.fieldMatrix[x, y];
                     Console.Write(cellOccupied ? '#' : background);
