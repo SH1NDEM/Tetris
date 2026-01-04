@@ -9,11 +9,11 @@ namespace Tetris.Core
     internal class GameField
     {
         /// <summary>
-        /// Высота игрового поля
+        /// Высота игрового поля (20 видимого и 5 невидимого)
         /// </summary>
-        readonly public static int fieldHight = 20;
+        readonly public static int fieldHight = 25;
         /// <summary>
-        /// Ширина игрового поля (*2 для лучшего отображения)
+        /// Ширина игрового поля 
         /// </summary>
         readonly public static int fieldWidth = 10;
 
@@ -36,10 +36,10 @@ namespace Tetris.Core
             }
         }
 
-        public void FigureMovment(Figure figure)
+        public void FigureView(Figure figure)
         {
-            int x = 5;
-            int y = 10;
+            int x = figure.X;
+            int y = figure.Y;
 
             for (int i = 0; i < 4; i++)
             {
@@ -47,6 +47,20 @@ namespace Tetris.Core
                 int fieldY = y + figure.Shape[1, i];
 
                 fieldMatrix[fieldX, fieldY] = true;
+            }
+        }
+
+        public void FigureMove(Figure figure)
+        {
+            int x = figure.X;
+            int y = figure.Y;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = x + figure.Shape[0, i] ;
+                int fieldY = y + figure.Shape[1, i] + 1;
+
+                fieldMatrix[fieldX, fieldY] = false;
             }
         }
     }

@@ -17,7 +17,6 @@ namespace Tetris.Core
             { FigureType.Z, new int[,] { {0,-1, 0, 1}, {0, 0,-1,-1} } },
             { FigureType.L, new int[,] { {0, 0, 0, 1}, {1, 0,-1,-1} } },
             { FigureType.J, new int[,] { {0, 0, 0,-1}, {1, 0,-1,-1} } }
-
         };
     }
 }
