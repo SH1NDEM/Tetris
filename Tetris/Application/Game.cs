@@ -25,6 +25,7 @@ namespace Tetris.Application
             Array values = Enum.GetValues(typeof(FigureType));
             FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
 
+            //создание падающей фигуры
             return new Figure(randomType, 5, 21);
         }
 
