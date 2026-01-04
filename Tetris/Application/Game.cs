@@ -32,31 +32,35 @@ namespace Tetris.Application
         public async void Run()
         {
             _figure = newFig();
-
             DateTime lastFallTime = DateTime.Now;
-
-            // Создаём renderer
-            _renderer = new ConsoleRenderer();
 
             while (true)
             {
                 DateTime now = DateTime.Now;
 
-                if ((now - lastFallTime).TotalSeconds >= 0.5)
+                if ((now - lastFallTime).TotalSeconds >= 0.1)
                 {
 
+                    if (_field.fallingCollision(_figure))
+                    {
+                        // стерли старую позицию
+                        _field.FigureMove(_figure);
+
+                        // нарисовали новую позицию
+                        _field.FigureView(_figure);
+                    }
+                    else
+                    {
+                        // фигура зафиксирована, создаём новую
+                        _figure = newFig();
+                        _field.FigureView(_figure);
+                    }
                     _figure.Y -= 1;
-                    _field.FigureMove(_figure);
-                    _field.FigureView(_figure);
                     _renderer.printGame();
                     lastFallTime = now;
                 }
-
-                if (_figure.Y == 1)
-                {
-                    _figure = newFig();
-                }
             }
         }
+
     }
 }

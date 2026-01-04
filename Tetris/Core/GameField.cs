@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,6 +51,7 @@ namespace Tetris.Core
             }
         }
 
+
         public void FigureMove(Figure figure)
         {
             int x = figure.X;
@@ -63,5 +65,37 @@ namespace Tetris.Core
                 fieldMatrix[fieldX, fieldY] = false;
             }
         }
+
+        public bool fallingCollision(Figure figure)
+        {
+            return countOfCollision(figure, 0, -1) == 0;
+        }
+
+
+        public int countOfCollision(Figure figure, int xp, int yp)
+        {
+            int count = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = figure.X + figure.Shape[0, i] + xp;
+                int fieldY = figure.Y + figure.Shape[1, i] + yp;
+
+                // выход за границы поля
+                if (fieldX < 0 || fieldX >= fieldWidth || fieldY < 0)
+                {
+                    count++;
+                    continue;
+                }
+
+                // столкновение с занятым блоком
+                if (fieldMatrix[fieldX, fieldY])
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
     }
 }
