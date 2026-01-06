@@ -37,6 +37,10 @@ namespace Tetris.Core
             }
         }
 
+        /// <summary>
+        /// Отображение падающей фигуры
+        /// </summary>
+        /// <param name="figure"></param>
         public void FigureView(Figure figure)
         {
             int x = figure.X;
@@ -51,7 +55,10 @@ namespace Tetris.Core
             }
         }
 
-
+        /// <summary>
+        /// Удаление предыдущих кадров падающей фигуры
+        /// </summary>
+        /// <param name="figure"></param>
         public void FigureClear(Figure figure)
         {
             int x = figure.X;
@@ -66,6 +73,11 @@ namespace Tetris.Core
             }
         }
 
+        /// <summary>
+        /// Функция показывающая коллизию фигуры в следующем тике
+        /// </summary>
+        /// <param name="figure"></param>
+        /// <returns></returns>
         public bool fallingCollision(Figure figure)
         {
             for (int i = 0; i < 4; i++)
@@ -80,9 +92,7 @@ namespace Tetris.Core
                 // столкновение с зафиксированными блоками
                 if (GameField.fieldMatrix[fieldX, fieldY])
                     return false; // коллизия
-
             }
-
             return true; // можно падать
         }
     }

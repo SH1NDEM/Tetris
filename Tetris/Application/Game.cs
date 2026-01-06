@@ -9,15 +9,22 @@ namespace Tetris.Application
         private ConsoleRenderer _renderer;
         private Figure _figure;
 
+        /// <summary>
+        /// Сздание объектов GameField, ConsoleRenderer. <br/>
+        /// Очистка и отображение поля
+        /// </summary>
         public Game()
         {
             _field = new GameField();
             _renderer = new ConsoleRenderer();
             _field.ClearField();
             _renderer.printGame();
-            
         }
 
+        /// <summary>
+        /// Создание случайной фигуры
+        /// </summary>
+        /// <returns>Figure(5, 22)</returns>
         public Figure newFig()
         {
             Random rnd = new Random();
@@ -26,12 +33,14 @@ namespace Tetris.Application
             FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
 
             //создание падающей фигуры
-            return new Figure(randomType, 5, 20);
+            return new Figure(randomType, 5, 22);
         }
 
+        /// <summary>
+        /// Запуск игрового процесса
+        /// </summary>
         public async void Run()
         {
-
             _figure = newFig();
 
             DateTime lastFallTime = DateTime.Now;
@@ -49,17 +58,16 @@ namespace Tetris.Application
 
                     if (!_field.fallingCollision(_figure))
                     {
-                        //_figure.Y += 1;          // откат
                         _field.FigureView(_figure);
                         _figure = newFig();
                     }
                     else
                     {
-                        _field.FigureView(_figure); // 3. нарисовали
+                        _field.FigureView(_figure);
                     }
                     _figure.Y -= 1;
-                    lastFallTime = now;
                     _renderer.printGame();
+                    lastFallTime = now;
                 }
             }
         }

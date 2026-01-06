@@ -8,9 +8,18 @@ namespace Tetris.Core
 {
     public class Figure
     {
+        /// <summary>
+        /// Координата фигуры по X
+        /// </summary>
         private int _x;
+        /// <summary>
+        /// Координата фигуры по Y
+        /// </summary>
         private int _y;
 
+        /// <summary>
+        /// Тип фигуры
+        /// </summary>
         public FigureType Type { get; }
         public int X
         {
@@ -36,9 +45,14 @@ namespace Tetris.Core
                 }
             }
         }
-
         public int[,] Shape => FigureShapes.Shapes[Type];
 
+        /// <summary>
+        /// Конструктор фигуры
+        /// </summary>
+        /// <param name="type">форма фигуры</param>
+        /// <param name="startX">координата по X</param>
+        /// <param name="startY">координата по Y</param>
         public Figure(FigureType type, int startX, int startY)
         {
             Type = type;
