@@ -43,17 +43,23 @@ namespace Tetris.Application
             {
                 DateTime now = DateTime.Now;
 
-                if ((now - lastFallTime).TotalSeconds >= 0.01)
+                if ((now - lastFallTime).TotalSeconds >= 0.1)
                 {
-                    _field.FigureMove(_figure);
-                    _field.FigureView(_figure);
-                    _figure.Y -= 1;
-                    _renderer.printGame();
-                    lastFallTime = now;
+                    _field.FigureClear(_figure);
+
                     if (!_field.fallingCollision(_figure))
                     {
+                        //_figure.Y += 1;          // откат
+                        _field.FigureView(_figure);
                         _figure = newFig();
                     }
+                    else
+                    {
+                        _field.FigureView(_figure); // 3. нарисовали
+                    }
+                    _figure.Y -= 1;
+                    lastFallTime = now;
+                    _renderer.printGame();
                 }
             }
         }
