@@ -64,6 +64,7 @@ namespace Tetris.Infrastructure
 
         public void printGame()
         {
+            Console.CursorVisible = false;
             printBorders();
             printBottom();
             printField();
