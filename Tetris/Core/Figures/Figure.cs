@@ -27,7 +27,7 @@ namespace Tetris.Core
 
             set
             {
-                if (value > 0 && value < 20)
+                if (value >= 0 && value < 9)
                 {
                     _x = value;
                 }

@@ -8,6 +8,7 @@ namespace Tetris.Application
         private GameField _field;
         private ConsoleRenderer _renderer;
         private Figure _figure;
+        private Control _control;
 
         /// <summary>
         /// Сздание объектов GameField, ConsoleRenderer. <br/>
@@ -17,6 +18,7 @@ namespace Tetris.Application
         {
             _field = new GameField();
             _renderer = new ConsoleRenderer();
+            _control = new Control();
             _field.ClearField();
             _renderer.printGame();
         }
@@ -51,10 +53,11 @@ namespace Tetris.Application
             while (true)
             {
                 DateTime now = DateTime.Now;
+                _field.FigureClear(_figure);
+                _control.figureControl(_figure);
 
-                if ((now - lastFallTime).TotalSeconds >= 0.1)
+                if ((now - lastFallTime).TotalSeconds >= 0.7)
                 {
-                    _field.FigureClear(_figure);
 
                     if (!_field.fallingCollision(_figure))
                     {

@@ -66,7 +66,7 @@ namespace Tetris.Core
 
             for (int i = 0; i < 4; i++)
             {
-                int fieldX = x + figure.Shape[0, i] ;
+                int fieldX = x + figure.Shape[0, i];
                 int fieldY = y + figure.Shape[1, i] + 1;
 
                 fieldMatrix[fieldX, fieldY] = false;
