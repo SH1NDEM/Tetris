@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tetris.Core;
+using Tetris.Application;
 
 namespace Tetris.Infrastructure
 {
@@ -22,6 +23,9 @@ namespace Tetris.Infrastructure
                         break;
                     case ConsoleKey.RightArrow:
                         figure.X += 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Game.speed = 0.1;
                         break;
                 }
             }
