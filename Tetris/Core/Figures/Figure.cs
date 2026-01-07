@@ -27,9 +27,57 @@ namespace Tetris.Core
 
             set
             {
-                if (value >= 0 && value < 9)
+                switch (Type)
                 {
-                    _x = value;
+                    case FigureType.T:
+                        if (value >= 1 && value < 9)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.O:
+                        if (value >= 0 && value < 9)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.I:
+                        if (value >= 0 && value < 10)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.S:
+                        if (value >= 1 && value < 9)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.Z:
+                        if (value >= 1 && value < 9)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.L:
+                        if (value >= 0 && value < 9)
+                        {
+                            _x = value;
+                        }
+                        break;
+
+                    case FigureType.J:
+                        if (value >= 1 && value < 10)
+                        {
+                            _x = value;
+                        }
+                        break;
+
                 }
             }
         }

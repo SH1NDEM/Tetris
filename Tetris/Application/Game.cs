@@ -5,6 +5,7 @@ namespace Tetris.Application
 {
     internal class Game
     {
+        public static double speed = 0.7;
         private GameField _field;
         private ConsoleRenderer _renderer;
         private Figure _figure;
@@ -35,7 +36,7 @@ namespace Tetris.Application
             FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
 
             //создание падающей фигуры
-            return new Figure(randomType, 5, 22);
+            return new Figure(randomType, 5, 20);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace Tetris.Application
                 _field.FigureClear(_figure);
                 _control.figureControl(_figure);
 
-                if ((now - lastFallTime).TotalSeconds >= 0.7)
+                if ((now - lastFallTime).TotalSeconds >= speed)
                 {
 
                     if (!_field.fallingCollision(_figure))
@@ -71,6 +72,7 @@ namespace Tetris.Application
                     _figure.Y -= 1;
                     _renderer.printGame();
                     lastFallTime = now;
+                    speed = 0.7;
                 }
             }
         }
