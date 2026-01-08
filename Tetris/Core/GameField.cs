@@ -67,7 +67,21 @@ namespace Tetris.Core
             for (int i = 0; i < 4; i++)
             {
                 int fieldX = x + figure.Shape[0, i];
-                int fieldY = y + figure.Shape[1, i] + 1;
+                int fieldY = y + figure.Shape[1, i];
+
+                fieldMatrix[fieldX, fieldY] = false;
+            }
+        }
+
+        public void FigureClearHorizontal(Figure figure, int j)
+        {
+            int x = figure.X;
+            int y = figure.Y;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = x + figure.Shape[0, i] + j;
+                int fieldY = y + figure.Shape[1, i];
 
                 fieldMatrix[fieldX, fieldY] = false;
             }

@@ -10,7 +10,7 @@ namespace Tetris.Infrastructure
 {
     internal class Control
     {
-        public void figureControl(Figure figure) 
+        public int figureControl(Figure figure) 
         {
             if (Console.KeyAvailable)
             {
@@ -20,15 +20,16 @@ namespace Tetris.Infrastructure
                 {
                     case ConsoleKey.LeftArrow:
                         figure.X -= 1;
-                        break;
+                        return 1;
                     case ConsoleKey.RightArrow:
                         figure.X += 1;
-                        break;
+                        return -1;
                     case ConsoleKey.DownArrow:
                         Game.speed = 0.1;
                         break;
                 }
             }
+            return 0;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Tetris.Application
         /// <summary>
         /// Создание случайной фигуры
         /// </summary>
-        /// <returns>Figure(5, 22)</returns>
+        /// <returns>Figure(5, 20)</returns>
         public Figure newFig()
         {
             Random rnd = new Random();
@@ -44,6 +44,7 @@ namespace Tetris.Application
         /// </summary>
         public async void Run()
         {
+            int horizontal = 0;
             _figure = newFig();
 
             DateTime lastFallTime = DateTime.Now;
@@ -55,11 +56,17 @@ namespace Tetris.Application
             {
                 DateTime now = DateTime.Now;
                 _field.FigureClear(_figure);
-                _control.figureControl(_figure);
-
-                if ((now - lastFallTime).TotalSeconds >= speed)
+                horizontal = _control.figureControl(_figure);
+                if (horizontal != 0 &&   (now - lastFallTime).TotalSeconds < speed )
                 {
+                    _field.FigureView(_figure);
+                    _renderer.printGame();
+                    horizontal = 0;
+                }
 
+                else if ((now - lastFallTime).TotalSeconds >= speed)
+                {
+                    _figure.Y -= 1;
                     if (!_field.fallingCollision(_figure))
                     {
                         _field.FigureView(_figure);
@@ -69,7 +76,6 @@ namespace Tetris.Application
                     {
                         _field.FigureView(_figure);
                     }
-                    _figure.Y -= 1;
                     _renderer.printGame();
                     lastFallTime = now;
                     speed = 0.7;
