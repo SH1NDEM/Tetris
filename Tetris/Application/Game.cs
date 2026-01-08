@@ -56,12 +56,11 @@ namespace Tetris.Application
             {
                 DateTime now = DateTime.Now;
                 _field.FigureClear(_figure);
-                horizontal = _control.figureControl(_figure);
-                if (horizontal != 0 &&   (now - lastFallTime).TotalSeconds < speed )
+                _control.figureControl(_figure);
+                if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);
                     _renderer.printGame();
-                    horizontal = 0;
                 }
 
                 else if ((now - lastFallTime).TotalSeconds >= speed)

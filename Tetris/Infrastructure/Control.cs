@@ -10,8 +10,9 @@ namespace Tetris.Infrastructure
 {
     internal class Control
     {
-        public int figureControl(Figure figure) 
+        public void figureControl(Figure figure)
         {
+            int[] per = new int [4];
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
@@ -20,16 +21,27 @@ namespace Tetris.Infrastructure
                 {
                     case ConsoleKey.LeftArrow:
                         figure.X -= 1;
-                        return 1;
+                        break;
                     case ConsoleKey.RightArrow:
                         figure.X += 1;
-                        return -1;
+                        break;
                     case ConsoleKey.DownArrow:
                         Game.speed = 0.1;
                         break;
+                    case ConsoleKey.UpArrow:
+                        for (int i = 0; i < 4; i++)
+                        {
+                            per[i] = figure.Shape[1, i];
+                        }
+                        for (int i = 0; i < 4; i++)
+                        {
+                            figure.Shape[1, i] = figure.Shape[0, i];
+                            figure.Shape[0, i] = -per[i];
+                        }
+                        break;
+
                 }
             }
-            return 0;
         }
     }
 }
