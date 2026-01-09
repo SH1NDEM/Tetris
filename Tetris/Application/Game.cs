@@ -44,7 +44,6 @@ namespace Tetris.Application
         /// </summary>
         public async void Run()
         {
-            int horizontal = 0;
             _figure = newFig();
 
             DateTime lastFallTime = DateTime.Now;
@@ -57,6 +56,7 @@ namespace Tetris.Application
                 DateTime now = DateTime.Now;
                 _field.FigureClear(_figure);
                 _control.figureControl(_figure);
+
                 if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);

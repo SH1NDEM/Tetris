@@ -73,20 +73,6 @@ namespace Tetris.Core
             }
         }
 
-        public void FigureClearHorizontal(Figure figure, int j)
-        {
-            int x = figure.X;
-            int y = figure.Y;
-
-            for (int i = 0; i < 4; i++)
-            {
-                int fieldX = x + figure.Shape[0, i] + j;
-                int fieldY = y + figure.Shape[1, i];
-
-                fieldMatrix[fieldX, fieldY] = false;
-            }
-        }
-
         /// <summary>
         /// Функция показывающая коллизию фигуры в следующем тике
         /// </summary>
