@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Tetris.Core
 {
@@ -120,5 +121,48 @@ namespace Tetris.Core
             }
             return true;
         }
+
+        public bool IsLineFull(int y)
+        {
+            for (int x = 0; x < fieldWidth; x++)
+            {
+                if (!fieldMatrix[x, y])
+                    return false;
+            }
+            return true;
+        }
+
+        public void ClearLine(int y)
+        {
+            // сдвигаем ВСЕ строки выше вниз
+            for (int yy = y; yy > 0; yy--)
+            {
+                for (int x = 0; x < fieldWidth; x++)
+                {
+                    fieldMatrix[x, yy] = fieldMatrix[x, yy - 1];
+                }
+            }
+
+            // верхнюю строку очищаем
+            for (int x = 0; x < fieldWidth; x++)
+            {
+                fieldMatrix[x, 0] = false;
+            }
+        }
+
+
+
+        public void CheckFullLines()
+        {
+            for (int y = fieldHight - 1; y >= 0; y--)
+            {
+                if (IsLineFull(y))
+                {
+                    ClearLine(y);
+                    y++; // перепроверяем эту же строку
+                }
+            }
+        }
+
     }
 }

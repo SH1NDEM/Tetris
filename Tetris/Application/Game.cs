@@ -69,6 +69,7 @@ namespace Tetris.Application
                     if (!_field.fallingCollision(_figure))
                     {
                         _field.FigureView(_figure);
+                        _field.CheckFullLines();
                         _figure = newFig();
                     }
                     else
