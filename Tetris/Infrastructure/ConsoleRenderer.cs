@@ -47,12 +47,12 @@ namespace Tetris.Infrastructure
 
         void printField()
         {
-            for (int y = 0; y < viewFieldHight; y++)
+            for (int y = 0; y < viewFieldHight + 1; y++)
             {
                 for (int x = 0; x < GameField.fieldWidth; x++)
                 {
                     int consoleX = startConsoleX + leftBorder.Length + x;
-                    int consoleY = startConsoleY + viewFieldHight - 1 - y;
+                    int consoleY = startConsoleY + viewFieldHight  - y;
 
                     Console.SetCursorPosition(consoleX*2, consoleY);
 

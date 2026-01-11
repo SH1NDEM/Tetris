@@ -6,7 +6,7 @@ namespace Tetris.Application
     internal class Game
     {
         public static double speed = 0.7;
-        private GameField _field;
+        public static GameField _field;
         private ConsoleRenderer _renderer;
         private Figure _figure;
         private Control _control;
@@ -44,7 +44,6 @@ namespace Tetris.Application
         /// </summary>
         public async void Run()
         {
-            int horizontal = 0;
             _figure = newFig();
 
             DateTime lastFallTime = DateTime.Now;
@@ -57,6 +56,7 @@ namespace Tetris.Application
                 DateTime now = DateTime.Now;
                 _field.FigureClear(_figure);
                 _control.figureControl(_figure);
+
                 if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);
@@ -69,6 +69,7 @@ namespace Tetris.Application
                     if (!_field.fallingCollision(_figure))
                     {
                         _field.FigureView(_figure);
+                        _field.CheckFullLines();
                         _figure = newFig();
                     }
                     else
