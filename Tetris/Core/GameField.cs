@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,24 @@ namespace Tetris.Core
                     return false; // коллизия
             }
             return true; // можно падать
+        }
+
+        public bool borderCollision(Figure figure, int step)
+        {
+            int x = figure.X;
+            int y = figure.Y;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int fieldX = x + figure.Shape[0, i] ;
+                int fieldY = y + figure.Shape[1, i];
+
+                if (fieldMatrix[fieldX + step, fieldY] == true)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

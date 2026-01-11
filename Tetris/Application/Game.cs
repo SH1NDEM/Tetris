@@ -6,7 +6,7 @@ namespace Tetris.Application
     internal class Game
     {
         public static double speed = 0.7;
-        private GameField _field;
+        public static GameField _field;
         private ConsoleRenderer _renderer;
         private Figure _figure;
         private Control _control;

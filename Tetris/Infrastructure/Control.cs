@@ -20,10 +20,16 @@ namespace Tetris.Infrastructure
                 switch (key.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        figure.X -= 1;
+                        if (Game._field.borderCollision(figure, -1))
+                        {
+                            figure.X -= 1;
+                        }
                         break;
                     case ConsoleKey.RightArrow:
-                        figure.X += 1;
+                        if (Game._field.borderCollision(figure, 1))
+                        {
+                            figure.X += 1;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
                         Game.speed = 0.1;
