@@ -47,7 +47,7 @@ namespace Tetris.Infrastructure
 
         void printField()
         {
-            for (int y = 0; y < viewFieldHight + 1; y++)
+            for (int y = 1; y < viewFieldHight+1; y++)
             {
                 for (int x = 0; x < GameField.fieldWidth; x++)
                 {
