@@ -87,7 +87,7 @@ namespace Tetris.Core
                 int fieldY = figure.Y + figure.Shape[1, i] - 1; ;
                 
                 // границы поля
-                if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 0)
+                if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 1)
                     return false; // коллизия
 
                 // столкновение с зафиксированными блоками
@@ -97,6 +97,12 @@ namespace Tetris.Core
             return true; // можно падать
         }
 
+        /// <summary>
+        /// Сравнение возможности сдвинуть фигуру вбок и не перезаписть ячейку другой фигуры
+        /// </summary>
+        /// <param name="figure">фигура сравнения</param>
+        /// <param name="step">шаг вправо и влево (1, -1)</param>
+        /// <returns></returns>
         public bool borderCollision(Figure figure, int step)
         {
             int x = figure.X;
