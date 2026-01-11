@@ -122,19 +122,26 @@ namespace Tetris.Core
             return true;
         }
 
-        public bool IsLineFull(int y)
+        /// <summary>
+        /// Опускает все строки выше удаленных вниз
+        /// </summary>
+        private void AllLineDown()
         {
-            for (int x = 0; x < fieldWidth; x++)
+            for (int y = 0; y < fieldHight - 1; y++) // начинаем с нижней строки
             {
-                if (!fieldMatrix[x, y])
-                    return false;
+                for (int x = 0; x < fieldWidth; x++)
+                {
+                    fieldMatrix[x, y] = fieldMatrix[x, y + 1]; // берём строку сверху и сдвигаем вниз
+                }
             }
-            return true;
         }
 
-        public void ClearLine(int y)
+        /// <summary>
+        /// Стирает полные линии
+        /// </summary>
+        /// <param name="y"></param>
+        private void ClearLine(int y)
         {
-            // сдвигаем ВСЕ строки выше вниз
             for (int yy = y; yy > 0; yy--)
             {
                 for (int x = 0; x < fieldWidth; x++)
@@ -143,14 +150,20 @@ namespace Tetris.Core
                 }
             }
 
-            // верхнюю строку очищаем
+            // Очищаем верхнюю строку
             for (int x = 0; x < fieldWidth; x++)
             {
                 fieldMatrix[x, 0] = false;
             }
         }
 
-
+        public bool IsLineFull(int y)
+        {
+            for (int x = 0; x < fieldWidth; x++)
+                if (!fieldMatrix[x, y])
+                    return false;
+            return true;
+        }
 
         public void CheckFullLines()
         {
@@ -159,10 +172,10 @@ namespace Tetris.Core
                 if (IsLineFull(y))
                 {
                     ClearLine(y);
-                    y++; // перепроверяем эту же строку
+                    AllLineDown();
+                    y++; // Проверяем эту же строку снова после сдвига
                 }
             }
         }
-
     }
 }
