@@ -22,14 +22,11 @@ namespace Tetris.Infrastructure
         // Проблема глобальная, нужно менять хранение фигуры в классе
         void ViewNextFigure(Figure figure)
         {
-            int[,] shape = FigureShapes.Shapes[figure.Type]; // НЕ крутится
+            int[,] shape = FigureShapes.Shapes[figure.Type];
 
             for (int i = 0; i < 4; i++)
             {
-                Console.SetCursorPosition(
-                    (shape[0, i] + 25) * 2,
-                    shape[1, i] + 6
-                );
+                Console.SetCursorPosition((-(shape[0, i] )+ 25) * 2, shape[1, i] + 6);
                 Console.Write('#');
             }
         }
@@ -37,9 +34,11 @@ namespace Tetris.Infrastructure
 
         public void ClearNextFigure(Figure figure)
         {
+            int[,] shape = FigureShapes.Shapes[figure.Type];
+
             for (int i = 0; i < 4; i++)
             {
-                Console.SetCursorPosition((figure.Shape[0, i] + 25) * 2, figure.Shape[1, i] + 6);
+                Console.SetCursorPosition((-(shape[0, i]) + 25) * 2, shape[1, i] + 6);
                 Console.Write(' ');
             }
         }

@@ -36,7 +36,7 @@ namespace Tetris.Application
             FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
 
             //создание падающей фигуры
-            return new Figure(FigureType.J, 5, 20);
+            return new Figure(randomType, 5, 20);
         }
 
         /// <summary>
