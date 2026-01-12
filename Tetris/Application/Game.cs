@@ -9,6 +9,7 @@ namespace Tetris.Application
         public static GameField _field;
         private ConsoleRenderer _renderer;
         private Figure _figure;
+        private Figure _figureNext;
         private Control _control;
 
         /// <summary>
@@ -21,7 +22,6 @@ namespace Tetris.Application
             _renderer = new ConsoleRenderer();
             _control = new Control();
             _field.ClearField();
-            _renderer.printGame();
         }
 
         /// <summary>
@@ -45,6 +45,7 @@ namespace Tetris.Application
         public async void Run()
         {
             _figure = newFig();
+            _figureNext = newFig();
 
             DateTime lastFallTime = DateTime.Now;
 
@@ -60,7 +61,7 @@ namespace Tetris.Application
                 if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);
-                    _renderer.printGame();
+                    _renderer.printGame(_figureNext);
                 }
 
                 else if ((now - lastFallTime).TotalSeconds >= speed)
@@ -70,13 +71,15 @@ namespace Tetris.Application
                     {
                         _field.FigureView(_figure);
                         _field.CheckFullLines();
-                        _figure = newFig();
+                        _figure = _figureNext;
+                        _renderer.ClearNextFigure(_figureNext);
+                        _figureNext = newFig();
                     }
                     else
                     {
                         _field.FigureView(_figure);
                     }
-                    _renderer.printGame();
+                    _renderer.printGame(_figureNext);
                     lastFallTime = now;
                     speed = 0.7;
                 }

@@ -46,7 +46,15 @@ namespace Tetris.Core
                 }
             }
         }
-        public int[,] Shape => FigureShapes.Shapes[Type];
+        public int[,] Shape { get; private set; }
+
+        private static int[,] CloneMatrix(int[,] source)
+        {
+            var result = new int[source.GetLength(0), source.GetLength(1)];
+            Array.Copy(source, result, source.Length);
+            return result;
+        }
+
 
         /// <summary>
         /// Конструктор фигуры
@@ -57,6 +65,7 @@ namespace Tetris.Core
         public Figure(FigureType type, int startX, int startY)
         {
             Type = type;
+            Shape = CloneMatrix(FigureShapes.Shapes[type]);
             X = startX;
             Y = startY;
         }
