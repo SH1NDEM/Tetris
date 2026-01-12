@@ -165,17 +165,20 @@ namespace Tetris.Core
             return true;
         }
 
-        public void CheckFullLines()
+        public int CheckFullLines()
         {
+            int count = 0;
             for (int y = fieldHight - 1; y >= 0; y--)
             {
                 if (IsLineFull(y))
                 {
                     ClearLine(y);
                     AllLineDown();
+                    count++;
                     y++; // Проверяем эту же строку снова после сдвига
                 }
             }
+            return count*100;
         }
     }
 }

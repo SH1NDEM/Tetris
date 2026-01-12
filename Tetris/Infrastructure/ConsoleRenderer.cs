@@ -18,8 +18,6 @@ namespace Tetris.Infrastructure
         int startConsoleY = 0 +3;
         int viewFieldHight = GameField.fieldHight - 5;
 
-
-        // Проблема глобальная, нужно менять хранение фигуры в классе
         void ViewNextFigure(Figure figure)
         {
             int[,] shape = FigureShapes.Shapes[figure.Type];
@@ -41,6 +39,14 @@ namespace Tetris.Infrastructure
                 Console.SetCursorPosition((-(shape[0, i]) + 25) * 2, shape[1, i] + 6);
                 Console.Write(' ');
             }
+        }
+
+        void ShowScore(int score)
+        {
+            Console.SetCursorPosition(48, 3);
+            Console.Write("score: ");
+            Console.SetCursorPosition(55, 3);
+            Console.Write(score);
         }
 
         void printBorders()
@@ -87,13 +93,14 @@ namespace Tetris.Infrastructure
             }
         }
 
-        public void printGame(Figure figure)
+        public void printGame(Figure figure, int score)
         {
             Console.CursorVisible = false;
             printBorders();
             printBottom();
             printField();
             ViewNextFigure(figure);
+            ShowScore(score);
         }
     }
 }

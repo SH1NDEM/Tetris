@@ -32,7 +32,7 @@ namespace Tetris.Infrastructure
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        Game.speed = 0.1;
+                        Game.speed = 0.05;
                         break;
                     case ConsoleKey.UpArrow:
                         for (int i = 0; i < 4; i++)
