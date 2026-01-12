@@ -98,29 +98,62 @@ namespace Tetris.Core
             return true; // можно падать
         }
 
+        public bool CanRotate(Figure figure)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                // будущие координаты после поворота
+                int newX = -figure.Shape[1, i];
+                int newY = figure.Shape[0, i];
+
+                int fieldX = figure.X + newX;
+                int fieldY = figure.Y + newY;
+
+                if (fieldX < 0 || fieldX >= fieldWidth ||
+                    fieldY < 0 || fieldY >= fieldHight)
+                {
+                    return false;
+                }
+
+                if (fieldMatrix[fieldX, fieldY])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Сравнение возможности сдвинуть фигуру вбок и не перезаписть ячейку другой фигуры
         /// </summary>
         /// <param name="figure">фигура сравнения</param>
         /// <param name="step">шаг вправо и влево (1, -1)</param>
         /// <returns></returns>
-        public bool borderCollision(Figure figure, int step)
+        public bool BorderCollision(Figure figure, int step)
         {
-            int x = figure.X;
-            int y = figure.Y;
-
             for (int i = 0; i < 4; i++)
             {
-                int fieldX = x + figure.Shape[0, i] ;
-                int fieldY = y + figure.Shape[1, i];
+                int fieldX = figure.X + figure.Shape[0, i] + step;
+                int fieldY = figure.Y + figure.Shape[1, i];
 
-                if (fieldMatrix[fieldX + step, fieldY] == true)
+                // выход за границы поля
+                if (fieldX < 0 || fieldX >= fieldWidth ||
+                    fieldY < 0 || fieldY >= fieldHight)
+                {
+                    return false;
+                }
+
+                // столкновение с занятой клеткой
+                if (fieldMatrix[fieldX, fieldY])
                 {
                     return false;
                 }
             }
+
             return true;
         }
+
 
         /// <summary>
         /// Опускает все строки выше удаленных вниз
