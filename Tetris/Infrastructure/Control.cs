@@ -20,20 +20,23 @@ namespace Tetris.Infrastructure
                 switch (key.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        if (Game._field.borderCollision(figure, -1))
+                        if (Game._field.BorderCollision(figure, -1))
                         {
                             figure.X -= 1;
                         }
                         break;
+
                     case ConsoleKey.RightArrow:
-                        if (Game._field.borderCollision(figure, 1))
+                        if (Game._field.BorderCollision(figure, 1))
                         {
                             figure.X += 1;
                         }
                         break;
+
                     case ConsoleKey.DownArrow:
-                        Game.speed = 0.05;
+                        Game.speed = 0.1;
                         break;
+
                     case ConsoleKey.UpArrow:
                         for (int i = 0; i < 4; i++)
                         {
@@ -41,8 +44,12 @@ namespace Tetris.Infrastructure
                         }
                         for (int i = 0; i < 4; i++)
                         {
-                            figure.Shape[1, i] = figure.Shape[0, i];
-                            figure.Shape[0, i] = -per[i];
+                            if (Game._field.CanRotate(figure))
+                            {
+                                figure.Shape[1, i] = figure.Shape[0, i];
+                                figure.Shape[0, i] = -per[i];
+                            }
+                            
                         }
                         break;
 
