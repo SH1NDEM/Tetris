@@ -1,4 +1,5 @@
-﻿using Tetris.Core;
+﻿using System.Diagnostics;
+using Tetris.Core;
 using Tetris.Infrastructure;
 
 namespace Tetris.Application
@@ -78,6 +79,7 @@ namespace Tetris.Application
                         {
                             _renderer.PrintGameOver(score);
                             Console.Read();
+                            Process.GetCurrentProcess().Kill();
                         }
                         _figureNext = newFig();
                     }
