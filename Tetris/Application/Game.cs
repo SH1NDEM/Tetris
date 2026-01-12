@@ -74,6 +74,11 @@ namespace Tetris.Application
                         score += _field.CheckFullLines();
                         _figure = _figureNext;
                         _renderer.ClearNextFigure(_figureNext);
+                        if (_field.GameOver())
+                        {
+                            _renderer.PrintGameOver(score);
+                            Console.Read();
+                        }
                         _figureNext = newFig();
                     }
                     else

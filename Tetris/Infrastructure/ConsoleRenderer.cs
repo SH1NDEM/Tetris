@@ -93,6 +93,22 @@ namespace Tetris.Infrastructure
             }
         }
 
+        public void PrintGameOver(int score)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(52, 3);
+            Console.Write("█▀▀ ▄▀█ █▀▄▀█ █▀▀");
+            Console.SetCursorPosition(52, 4);
+            Console.Write("█▄█ █▀█ █ ▀ █ ██▄");
+            Console.SetCursorPosition(52, 6);
+            Console.Write("█▀█ █ █ █▀▀ █▀█");
+            Console.SetCursorPosition(52, 7);
+            Console.Write("█▄█ ▀▄▀ ██▄ █▀▄");
+            Console.SetCursorPosition(52, 9);
+            Console.Write("Your score: ");
+            Console.SetCursorPosition(64, 9);
+            Console.Write(score);
+        }
         public void printGame(Figure figure, int score)
         {
             Console.CursorVisible = false;

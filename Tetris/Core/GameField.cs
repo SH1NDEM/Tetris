@@ -213,5 +213,17 @@ namespace Tetris.Core
             }
             return count*100;
         }
+
+        public bool GameOver()
+        {
+            for (int x = 0; x < fieldWidth; x++)
+            {
+                if (fieldMatrix[x, 20] == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
