@@ -7,6 +7,7 @@ namespace Tetris.Application
     {
         public static double speed = 0.7;
         public static GameField _field;
+        public static int score = 0;
         private ConsoleRenderer _renderer;
         private Figure _figure;
         private Figure _figureNext;
@@ -61,7 +62,7 @@ namespace Tetris.Application
                 if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);
-                    _renderer.printGame(_figureNext);
+                    _renderer.printGame(_figureNext, score);
                 }
 
                 else if ((now - lastFallTime).TotalSeconds >= speed)
@@ -70,7 +71,7 @@ namespace Tetris.Application
                     if (!_field.fallingCollision(_figure))
                     {
                         _field.FigureView(_figure);
-                        _field.CheckFullLines();
+                        score += _field.CheckFullLines();
                         _figure = _figureNext;
                         _renderer.ClearNextFigure(_figureNext);
                         _figureNext = newFig();
@@ -79,7 +80,7 @@ namespace Tetris.Application
                     {
                         _field.FigureView(_figure);
                     }
-                    _renderer.printGame(_figureNext);
+                    _renderer.printGame(_figureNext, score);
                     lastFallTime = now;
                     speed = 0.7;
                 }
