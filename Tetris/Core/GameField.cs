@@ -23,7 +23,8 @@ namespace Tetris.Core
         /// <summary>
         /// Матрица поля типа bool
         /// </summary>
-        public static bool[,] fieldMatrix = new bool[fieldWidth, fieldHight];
+        private bool[,] _fieldMatrix = new bool[fieldWidth, fieldHight];
+        public bool[,] FieldMatrix => _fieldMatrix;
 
         /// <summary>
         /// Полная очистка fieldMatrix
@@ -34,7 +35,7 @@ namespace Tetris.Core
             {
                 for (int y = 0; y < fieldHight; y++)
                 {
-                    fieldMatrix[x, y] = false;
+                    FieldMatrix[x, y] = false;
                 }
             }
         }
@@ -53,7 +54,7 @@ namespace Tetris.Core
                 int fieldX = x + figure.Shape[0, i];
                 int fieldY = y + figure.Shape[1, i];
 
-                fieldMatrix[fieldX, fieldY] = true;
+                FieldMatrix[fieldX, fieldY] = true;
             }
         }
 
@@ -71,7 +72,7 @@ namespace Tetris.Core
                 int fieldX = x + figure.Shape[0, i];
                 int fieldY = y + figure.Shape[1, i];
 
-                fieldMatrix[fieldX, fieldY] = false;
+                FieldMatrix[fieldX, fieldY] = false;
             }
         }
 
@@ -88,11 +89,11 @@ namespace Tetris.Core
                 int fieldY = figure.Y + figure.Shape[1, i] - 1; ;
                 
                 // границы поля
-                if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 1)
+                if (fieldX < 0 || fieldX >= fieldWidth || fieldY < 1)
                     return false; // коллизия
 
                 // столкновение с зафиксированными блоками
-                if (GameField.fieldMatrix[fieldX, fieldY])
+                if (FieldMatrix[fieldX, fieldY])
                     return false; // коллизия
             }
             return true; // можно падать
@@ -115,7 +116,7 @@ namespace Tetris.Core
                     return false;
                 }
 
-                if (fieldMatrix[fieldX, fieldY])
+                if (FieldMatrix[fieldX, fieldY])
                 {
                     return false;
                 }
@@ -145,7 +146,7 @@ namespace Tetris.Core
                 }
 
                 // столкновение с занятой клеткой
-                if (fieldMatrix[fieldX, fieldY])
+                if (FieldMatrix[fieldX, fieldY])
                 {
                     return false;
                 }
@@ -164,7 +165,7 @@ namespace Tetris.Core
             {
                 for (int x = 0; x < fieldWidth; x++)
                 {
-                    fieldMatrix[x, y] = fieldMatrix[x, y + 1]; // берём строку сверху и сдвигаем вниз
+                    FieldMatrix[x, y] = FieldMatrix[x, y + 1]; // берём строку сверху и сдвигаем вниз
                 }
             }
         }
@@ -179,21 +180,21 @@ namespace Tetris.Core
             {
                 for (int x = 0; x < fieldWidth; x++)
                 {
-                    fieldMatrix[x, yy] = fieldMatrix[x, yy - 1];
+                    FieldMatrix[x, yy] = FieldMatrix[x, yy - 1];
                 }
             }
 
             // Очищаем верхнюю строку
             for (int x = 0; x < fieldWidth; x++)
             {
-                fieldMatrix[x, 0] = false;
+                FieldMatrix[x, 0] = false;
             }
         }
 
         public bool IsLineFull(int y)
         {
             for (int x = 0; x < fieldWidth; x++)
-                if (!fieldMatrix[x, y])
+                if (!FieldMatrix[x, y])
                     return false;
             return true;
         }
@@ -218,7 +219,7 @@ namespace Tetris.Core
         {
             for (int x = 0; x < fieldWidth; x++)
             {
-                if (fieldMatrix[x, 20] == true)
+                if (FieldMatrix[x, 20] == true)
                 {
                     return true;
                 }

@@ -76,7 +76,7 @@ namespace Tetris.Infrastructure
             }
         }
 
-        void printField()
+        void printField(bool[,] fieldMatrix)
         {
             for (int y = 1; y < viewFieldHight+1; y++)
             {
@@ -87,7 +87,7 @@ namespace Tetris.Infrastructure
 
                     Console.SetCursorPosition(consoleX*2, consoleY);
 
-                    bool cellOccupied = GameField.fieldMatrix[x, y];
+                    bool cellOccupied = fieldMatrix[x, y];
                     Console.Write(cellOccupied ? '#' : background);
                 }
             }
@@ -109,12 +109,12 @@ namespace Tetris.Infrastructure
             Console.SetCursorPosition(64, 9);
             Console.Write(score);
         }
-        public void printGame(Figure figure, int score)
+        public void printGame(Figure figure, int score, bool[,] fieldMatrix)
         {
             Console.CursorVisible = false;
             printBorders();
             printBottom();
-            printField();
+            printField(fieldMatrix);
             ViewNextFigure(figure);
             ShowScore(score);
         }

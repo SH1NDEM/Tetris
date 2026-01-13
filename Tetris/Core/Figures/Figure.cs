@@ -48,6 +48,11 @@ namespace Tetris.Core
         }
         public int[,] Shape { get; private set; }
 
+        /// <summary>
+        /// избавление от ссылочности и копирование в класс независимой матрицы с формой
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private static int[,] CloneMatrix(int[,] source)
         {
             var result = new int[source.GetLength(0), source.GetLength(1)];
@@ -62,12 +67,13 @@ namespace Tetris.Core
         /// <param name="type">форма фигуры</param>
         /// <param name="startX">координата по X</param>
         /// <param name="startY">координата по Y</param>
+        /// <param name="Shape">форма фигуры</param>
         public Figure(FigureType type, int startX, int startY)
         {
             Type = type;
-            Shape = CloneMatrix(FigureShapes.Shapes[type]);
             X = startX;
             Y = startY;
+            Shape = CloneMatrix(FigureShapes.Shapes[type]);
         }
     }
 }

@@ -2,12 +2,12 @@
 
 internal class Program
 {
-    private static void Main()
+    private static async Task Main()
     {
         // Создаём игру
         var game = new Game();
 
         // Запускаем игру
-        game.Run();
+        await game.Run();
     }
 }
