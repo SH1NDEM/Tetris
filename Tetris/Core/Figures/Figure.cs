@@ -51,6 +51,11 @@ namespace Tetris.Core
 
         public ConsoleColor Colour { get; private set; }
 
+        /// <summary>
+        /// Функция создания независимой копии фигуры
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private static int[,] CloneMatrix(int[,] source)
         {
             var result = new int[source.GetLength(0), source.GetLength(1)];

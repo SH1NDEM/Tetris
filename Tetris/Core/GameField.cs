@@ -99,6 +99,11 @@ namespace Tetris.Core
             return true; // можно падать
         }
 
+        /// <summary>
+        /// Булевое обозначение возможности вращения фигуры
+        /// </summary>
+        /// <param name="figure"></param>
+        /// <returns></returns>
         public bool CanRotate(Figure figure)
         {
             for (int i = 0; i < 4; i++)
@@ -191,6 +196,11 @@ namespace Tetris.Core
             }
         }
 
+        /// <summary>
+        /// Булевое значение заполненности линии
+        /// </summary>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsLineFull(int y)
         {
             for (int x = 0; x < fieldWidth; x++)
@@ -199,6 +209,10 @@ namespace Tetris.Core
             return true;
         }
 
+        /// <summary>
+        /// Проверка и удаление полных линий
+        /// </summary>
+        /// <returns></returns>
         public int CheckFullLines()
         {
             int count = 0;
@@ -215,6 +229,10 @@ namespace Tetris.Core
             return count*100;
         }
 
+        /// <summary>
+        /// Булевое значение окончания игры
+        /// </summary>
+        /// <returns></returns>
         public bool GameOver()
         {
             for (int x = 0; x < fieldWidth; x++)
