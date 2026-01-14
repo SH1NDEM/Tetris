@@ -29,7 +29,6 @@ namespace Tetris.Infrastructure
             }
         }
 
-
         public void ClearNextFigure(Figure figure)
         {
             int[,] shape = FigureShapes.Shapes[figure.Type];
@@ -46,7 +45,9 @@ namespace Tetris.Infrastructure
             Console.SetCursorPosition(48, 3);
             Console.Write("score: ");
             Console.SetCursorPosition(55, 3);
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(score);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         void printBorders()
@@ -76,7 +77,7 @@ namespace Tetris.Infrastructure
             }
         }
 
-        void printField()
+        void printField(Figure figure)
         {
             for (int y = 1; y < viewFieldHight+1; y++)
             {
@@ -84,11 +85,29 @@ namespace Tetris.Infrastructure
                 {
                     int consoleX = startConsoleX + leftBorder.Length + x;
                     int consoleY = startConsoleY + viewFieldHight  - y;
-
                     Console.SetCursorPosition(consoleX*2, consoleY);
 
-                    bool cellOccupied = GameField.fieldMatrix[x, y];
-                    Console.Write(cellOccupied ? '#' : background);
+                    bool cellOccupied = false;
+                    if (GameField.fieldMatrix[x, y] > 0)
+                    {
+                        cellOccupied = true;
+                    }
+                    else
+                    {
+                        cellOccupied = false;
+                    }
+
+                    if (cellOccupied)
+                    {
+                        Console.ForegroundColor = (ConsoleColor)GameField.fieldMatrix[x, y];
+                        Console.Write('#');
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.Write(background);
+                    }
+
                 }
             }
         }
@@ -114,7 +133,7 @@ namespace Tetris.Infrastructure
             Console.CursorVisible = false;
             printBorders();
             printBottom();
-            printField();
+            printField(figure);
             ViewNextFigure(figure);
             ShowScore(score);
         }
