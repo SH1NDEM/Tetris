@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tetris.Core.Figures;
 
 namespace Tetris.Core
 {
@@ -48,13 +49,19 @@ namespace Tetris.Core
         }
         public int[,] Shape { get; private set; }
 
+        public ConsoleColor Colour { get; private set; }
+
+        /// <summary>
+        /// Функция создания независимой копии фигуры
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private static int[,] CloneMatrix(int[,] source)
         {
             var result = new int[source.GetLength(0), source.GetLength(1)];
             Array.Copy(source, result, source.Length);
             return result;
         }
-
 
         /// <summary>
         /// Конструктор фигуры
@@ -66,6 +73,7 @@ namespace Tetris.Core
         {
             Type = type;
             Shape = CloneMatrix(FigureShapes.Shapes[type]);
+            Colour = FigureColours.Colour[type];
             X = startX;
             Y = startY;
         }

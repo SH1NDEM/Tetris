@@ -10,6 +10,10 @@ namespace Tetris.Infrastructure
 {
     internal class Control
     {
+        /// <summary>
+        /// Упраление фигурой во время падения
+        /// </summary>
+        /// <param name="figure"></param>
         public void figureControl(Figure figure)
         {
             int[] per = new int [4];

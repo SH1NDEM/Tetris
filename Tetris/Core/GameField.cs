@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Tetris.Core
 {
@@ -23,7 +24,7 @@ namespace Tetris.Core
         /// <summary>
         /// Матрица поля типа bool
         /// </summary>
-        public static bool[,] fieldMatrix = new bool[fieldWidth, fieldHight];
+        public static int[,] fieldMatrix = new int[fieldWidth, fieldHight];
 
         /// <summary>
         /// Полная очистка fieldMatrix
@@ -34,7 +35,7 @@ namespace Tetris.Core
             {
                 for (int y = 0; y < fieldHight; y++)
                 {
-                    fieldMatrix[x, y] = false;
+                    fieldMatrix[x, y] = 0;
                 }
             }
         }
@@ -53,7 +54,7 @@ namespace Tetris.Core
                 int fieldX = x + figure.Shape[0, i];
                 int fieldY = y + figure.Shape[1, i];
 
-                fieldMatrix[fieldX, fieldY] = true;
+                fieldMatrix[fieldX, fieldY] = (int)figure.Colour;
             }
         }
 
@@ -71,7 +72,7 @@ namespace Tetris.Core
                 int fieldX = x + figure.Shape[0, i];
                 int fieldY = y + figure.Shape[1, i];
 
-                fieldMatrix[fieldX, fieldY] = false;
+                fieldMatrix[fieldX, fieldY] = 0;
             }
         }
 
@@ -88,16 +89,21 @@ namespace Tetris.Core
                 int fieldY = figure.Y + figure.Shape[1, i] - 1; ;
                 
                 // границы поля
-                if (fieldX < 0 || fieldX >= GameField.fieldWidth || fieldY < 1)
+                if (fieldX < 0 || fieldX >= fieldWidth || fieldY < 1)
                     return false; // коллизия
 
                 // столкновение с зафиксированными блоками
-                if (GameField.fieldMatrix[fieldX, fieldY])
+                if (fieldMatrix[fieldX, fieldY] > 0)
                     return false; // коллизия
             }
             return true; // можно падать
         }
 
+        /// <summary>
+        /// Булевое обозначение возможности вращения фигуры
+        /// </summary>
+        /// <param name="figure"></param>
+        /// <returns></returns>
         public bool CanRotate(Figure figure)
         {
             for (int i = 0; i < 4; i++)
@@ -115,7 +121,7 @@ namespace Tetris.Core
                     return false;
                 }
 
-                if (fieldMatrix[fieldX, fieldY])
+                if (fieldMatrix[fieldX, fieldY] > 0)
                 {
                     return false;
                 }
@@ -145,7 +151,7 @@ namespace Tetris.Core
                 }
 
                 // столкновение с занятой клеткой
-                if (fieldMatrix[fieldX, fieldY])
+                if (fieldMatrix[fieldX, fieldY] > 0)
                 {
                     return false;
                 }
@@ -186,18 +192,27 @@ namespace Tetris.Core
             // Очищаем верхнюю строку
             for (int x = 0; x < fieldWidth; x++)
             {
-                fieldMatrix[x, 0] = false;
+                fieldMatrix[x, 0] = 0;
             }
         }
 
+        /// <summary>
+        /// Булевое значение заполненности линии
+        /// </summary>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsLineFull(int y)
         {
             for (int x = 0; x < fieldWidth; x++)
-                if (!fieldMatrix[x, y])
+                if (fieldMatrix[x, y] == 0)
                     return false;
             return true;
         }
 
+        /// <summary>
+        /// Проверка и удаление полных линий
+        /// </summary>
+        /// <returns></returns>
         public int CheckFullLines()
         {
             int count = 0;
@@ -214,11 +229,15 @@ namespace Tetris.Core
             return count*100;
         }
 
+        /// <summary>
+        /// Булевое значение окончания игры
+        /// </summary>
+        /// <returns></returns>
         public bool GameOver()
         {
             for (int x = 0; x < fieldWidth; x++)
             {
-                if (fieldMatrix[x, 20] == true)
+                if (fieldMatrix[x, 20] > 0)
                 {
                     return true;
                 }
