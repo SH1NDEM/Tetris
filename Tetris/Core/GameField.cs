@@ -24,7 +24,7 @@ namespace Tetris.Core
         /// <summary>
         /// Матрица поля типа bool
         /// </summary>
-        public static int[,] fieldMatrix = new int[fieldWidth, fieldHight];
+        public int[,] fieldMatrix = new int[fieldWidth, fieldHight];
 
         /// <summary>
         /// Полная очистка fieldMatrix

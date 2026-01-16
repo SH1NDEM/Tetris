@@ -99,7 +99,7 @@ namespace Tetris.Infrastructure
         /// Отображение сетки фона поля
         /// </summary>
         /// <param name="figure"></param>
-        void printField(Figure figure)
+        void printField(Figure figure, int[,] fieldMatrix)
         {
             for (int y = 1; y < viewFieldHight+1; y++)
             {
@@ -110,7 +110,7 @@ namespace Tetris.Infrastructure
                     Console.SetCursorPosition(consoleX*2, consoleY);
 
                     bool cellOccupied = false;
-                    if (GameField.fieldMatrix[x, y] > 0)
+                    if (fieldMatrix[x, y] > 0)
                     {
                         cellOccupied = true;
                     }
@@ -121,7 +121,7 @@ namespace Tetris.Infrastructure
 
                     if (cellOccupied)
 {
-                        Console.ForegroundColor = (ConsoleColor)GameField.fieldMatrix[x, y];
+                        Console.ForegroundColor = (ConsoleColor)fieldMatrix[x, y];
                         Console.Write('#');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -160,12 +160,12 @@ namespace Tetris.Infrastructure
         /// </summary>
         /// <param name="figure"></param>
         /// <param name="score"></param>
-        public void printGame(Figure figure, int score)
+        public void printGame(Figure figure, int score, int[,] fieldMatrix)
         {
             Console.CursorVisible = false;
             printBorders();
             printBottom();
-            printField(figure);
+            printField(figure, fieldMatrix);
             ViewNextFigure(figure);
             ShowScore(score);
         }

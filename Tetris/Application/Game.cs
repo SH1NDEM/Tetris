@@ -44,7 +44,7 @@ namespace Tetris.Application
         /// <summary>
         /// Запуск игрового процесса
         /// </summary>
-        public async void Run()
+        public async Task Run()
         {
             _figure = newFig();
             _figureNext = newFig();
@@ -63,7 +63,7 @@ namespace Tetris.Application
                 if ((now - lastFallTime).TotalSeconds < speed )
                 {
                     _field.FigureView(_figure);
-                    _renderer.printGame(_figureNext, score);
+                    _renderer.printGame(_figureNext, score, _field.fieldMatrix);
                 }
 
                 else if ((now - lastFallTime).TotalSeconds >= speed)
@@ -87,7 +87,7 @@ namespace Tetris.Application
                     {
                         _field.FigureView(_figure);
                     }
-                    _renderer.printGame(_figureNext, score);
+                    _renderer.printGame(_figureNext, score, _field.fieldMatrix);
                     lastFallTime = now;
                     speed = 0.7;
                 }
