@@ -42,14 +42,13 @@ namespace Tetris.Infrastructure
                         {
                             per[i] = figure.Shape[1, i];
                         }
-                        for (int i = 0; i < 4; i++)
+                        if (Game._field.CanRotate(figure))
                         {
-                            if (Game._field.CanRotate(figure))
+                            for (int i = 0; i < 4; i++)
                             {
                                 figure.Shape[1, i] = figure.Shape[0, i];
                                 figure.Shape[0, i] = -per[i];
                             }
-                            
                         }
                         break;
 

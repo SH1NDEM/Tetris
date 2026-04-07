@@ -109,11 +109,15 @@ namespace Tetris.Infrastructure
             Console.SetCursorPosition(64, 9);
             Console.Write(score);
         }
-        public void printGame(Figure figure, int score, bool[,] fieldMatrix)
+        public void Init()
         {
             Console.CursorVisible = false;
             printBorders();
             printBottom();
+        }
+
+        public void printGame(Figure figure, int score, bool[,] fieldMatrix)
+        {
             printField(fieldMatrix);
             ViewNextFigure(figure);
             ShowScore(score);

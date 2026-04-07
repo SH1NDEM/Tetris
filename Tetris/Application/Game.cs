@@ -13,6 +13,7 @@ namespace Tetris.Application
         private Figure _figure;
         private Figure _figureNext;
         private Control _control;
+        private static readonly Random _rnd = new Random();
 
         /// <summary>
         /// Сздание объектов GameField, ConsoleRenderer. <br/>
@@ -32,10 +33,8 @@ namespace Tetris.Application
         /// <returns>Figure(5, 20)</returns>
         public Figure newFig()
         {
-            Random rnd = new Random();
-
             Array values = Enum.GetValues(typeof(FigureType));
-            FigureType randomType = (FigureType)values.GetValue(rnd.Next(values.Length));
+            FigureType randomType = (FigureType)values.GetValue(_rnd.Next(values.Length));
 
             //создание падающей фигуры
             return new Figure(randomType, 5, 20);
@@ -51,8 +50,7 @@ namespace Tetris.Application
 
             DateTime lastFallTime = DateTime.Now;
 
-            // Создаём renderer
-            _renderer = new ConsoleRenderer();
+            _renderer.Init();
 
             while (true)
             {
@@ -60,13 +58,12 @@ namespace Tetris.Application
                 _field.FigureClear(_figure);
                 _control.figureControl(_figure);
 
-                if ((now - lastFallTime).TotalSeconds < speed )
+                if ((now - lastFallTime).TotalSeconds < speed)
                 {
                     _field.FigureView(_figure);
                     _renderer.printGame(_figureNext, score, _field.FieldMatrix);
                 }
-
-                else if ((now - lastFallTime).TotalSeconds >= speed)
+                else
                 {
                     _figure.Y -= 1;
                     if (!_field.fallingCollision(_figure))
@@ -91,6 +88,8 @@ namespace Tetris.Application
                     lastFallTime = now;
                     speed = 0.7;
                 }
+
+                await Task.Delay(16);
             }
         }
     }

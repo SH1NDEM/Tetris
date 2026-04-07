@@ -157,37 +157,23 @@ namespace Tetris.Core
 
 
         /// <summary>
-        /// Опускает все строки выше удаленных вниз
-        /// </summary>
-        private void AllLineDown()
-        {
-            for (int y = 0; y < fieldHight - 1; y++) // начинаем с нижней строки
-            {
-                for (int x = 0; x < fieldWidth; x++)
-                {
-                    FieldMatrix[x, y] = FieldMatrix[x, y + 1]; // берём строку сверху и сдвигаем вниз
-                }
-            }
-        }
-
-        /// <summary>
-        /// Стирает полные линии
+        /// Стирает полную линию y и сдвигает всё выше неё вниз
         /// </summary>
         /// <param name="y"></param>
         private void ClearLine(int y)
         {
-            for (int yy = y; yy > 0; yy--)
+            for (int row = y; row < fieldHight - 1; row++)
             {
                 for (int x = 0; x < fieldWidth; x++)
                 {
-                    FieldMatrix[x, yy] = FieldMatrix[x, yy - 1];
+                    FieldMatrix[x, row] = FieldMatrix[x, row + 1];
                 }
             }
 
             // Очищаем верхнюю строку
             for (int x = 0; x < fieldWidth; x++)
             {
-                FieldMatrix[x, 0] = false;
+                FieldMatrix[x, fieldHight - 1] = false;
             }
         }
 
@@ -207,7 +193,6 @@ namespace Tetris.Core
                 if (IsLineFull(y))
                 {
                     ClearLine(y);
-                    AllLineDown();
                     count++;
                     y++; // Проверяем эту же строку снова после сдвига
                 }
